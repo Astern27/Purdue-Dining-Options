@@ -17,5 +17,5 @@ I will be using java to code it. The libraries I need:
 - HttpClient
 - Gson
 - java.time
-I will be using the Purdue Items API (https://apis.io/apis/purdue/purdue-items-api)
+I will be using the Purdue Items API (https://apis.io/apis/purdue/purdue-menus-api/)
 I will store my result as plain text
