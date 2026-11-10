@@ -26,6 +26,11 @@ javac -cp "lib/gson-2.15.0.jar" src/Main.java
 ```
 ## Usage
 Run this command in your terminal at the root of the project:
+Windows:
 ```bash
 java -cp "lib/gson-2.15.0.jar;src" Main
+```
+Mac/Linux:
+```bash
+java -cp "lib/gson-2.15.0.jar:src" Main
 ```
