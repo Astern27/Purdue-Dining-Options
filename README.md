@@ -34,7 +34,7 @@ java -cp "lib/gson-2.15.0.jar:src" Main
 ```
 
 ## Roadmap
-- [] Search for future meals
-- [] Track Favorites
-- [] Searchable by items name
-- [] Sorted into categories
+- [ ] Search for future meals
+- [ ] Track Favorites
+- [ ] Searchable by items name
+- [ ] Sorted into categories
