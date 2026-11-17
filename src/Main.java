@@ -8,35 +8,58 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import java.time.LocalDate;
-import  java.time.LocalTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 public class Main {
-    private static String[] locations = {"Hillenbrand", "Earhart", "Wiley", "Windsor", "Ford"};
+    private final static String[] locations = {"Hillenbrand", "Earhart", "Wiley", "Windsor", "Ford"};
     public static void main(String[] args) {
         try {
-            LocalTime now = LocalTime.now();
+            //I'm using scanner so that you do not need an updated JDK to run the program
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Date: (format: YYYY-MM-DD) (Leave blank for today)");
+            String dateInput = scanner.nextLine();
+            System.out.println("Time: (format: HH:MM (Use Military Time)) (Leave blank for now)");
+            String timeInput = scanner.nextLine();
+            LocalDate date;
+            LocalTime time;
+            //Today should be the default date
+            if (dateInput.isBlank()) {
+                date = LocalDate.now();
+            } else {
+                date = LocalDate.parse(dateInput);
+            }
+            //Now should be the default time
+            if (timeInput.isBlank()) {
+                time = LocalTime.now();
+            } else {
+                time = LocalTime.parse(timeInput);
+            }
             HttpClient client = HttpClient.newHttpClient();
             for (String location : locations) {
                 HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://api.hfs.purdue.edu/menus/v2/locations/" + location + "/" + LocalDate.now()))
+                    .uri(URI.create("https://api.hfs.purdue.edu/menus/v2/locations/" + location + "/" + date))
                     .GET().build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 JsonObject menu = JsonParser.parseString(response.body()).getAsJsonObject();
-                printMenuItems(menu, now);
+                printMenuItems(menu, time);
             }
             HttpRequest request = HttpRequest.newBuilder()
                 //I have to use new URI() instead of URI.create() because the URL has spaces in it. URI.create() crashes when there are spaces in the URL.
-                .uri(new URI("https", "api.hfs.purdue.edu", "/menus/v2/locations/1bowl at Meredith Hall/" + LocalDate.now(), null))
+                .uri(new URI("https", "api.hfs.purdue.edu", "/menus/v2/locations/1bowl at Meredith Hall/" + date, null))
                 .GET().build();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             JsonObject menu = JsonParser.parseString(response.body()).getAsJsonObject();
-            printMenuItems(menu, now);
+            printMenuItems(menu, time);
         } catch (InterruptedException e) {
             System.out.println("Request interrupted: " + e.getMessage());
         } catch (IOException e) {
             System.out.println("IO Exception: " + e.getMessage());
         } catch (URISyntaxException e) {
             System.out.println("URI Syntax Error: " + e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("Could not parse date/time. Use the correct format");
         }
     }
 
