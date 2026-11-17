@@ -7,10 +7,8 @@ Whenever I want to find a place to eat on campus, I have to open an app and chec
 I am going to make a script that will output all of the dining options available at the moment you run it. It will list the food options and where they are located. This should only output food from dining courts and 1Bowl.
 
 ## MVP Plan
-The MVP will include receiving data from the API, parsing it, and printing it to the terminal.
-
-## Future Plans
-My future plans are tracking favorites, making it searchable, sorting the options into categories, and searching for future meals.
+The MVP will include receiving data from the API, parsing it, and printing it to the terminal.  
+![System Diagram](docs/System%20Diagram.png)
 
 ## Tech Stack
 - **Language:** Java
@@ -25,7 +23,7 @@ cd Purdue-Dining-Options
 javac -cp "lib/gson-2.15.0.jar" src/Main.java
 ```
 ## Usage
-Run this command in your terminal at the root of the project:
+Run this command in your terminal at the root of the project:  
 Windows:
 ```bash
 java -cp "lib/gson-2.15.0.jar;src" Main
@@ -34,3 +32,9 @@ Mac/Linux:
 ```bash
 java -cp "lib/gson-2.15.0.jar:src" Main
 ```
+
+## Roadmap
+- [] Search for future meals
+- [] Track Favorites
+- [] Searchable by items name
+- [] Sorted into categories
