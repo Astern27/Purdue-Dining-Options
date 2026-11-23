@@ -72,7 +72,8 @@ public class Main {
             //I have to check that a meal is open before getting the hours because hours are null when status is closed
             if (meal.get("Status").getAsString().equals("Open")) {
                 JsonObject hours = meal.getAsJsonObject("Hours");
-                if (time.isAfter(LocalTime.parse(hours.get("StartTime").getAsString())) && time.isBefore(LocalTime.parse(hours.get("EndTime").getAsString()))) {
+                //Instead of using is after start and is before end, I use not after end and not before start so the start and end times are inclusive
+                if (!time.isAfter(LocalTime.parse(hours.get("EndTime").getAsString())) && !time.isBefore(LocalTime.parse(hours.get("StartTime").getAsString()))) {
                     JsonArray stations = meal.getAsJsonArray("Stations");
                     for (int s = 0; s < stations.size(); s++) {
                         JsonObject station = stations.get(s).getAsJsonObject();
